@@ -40,8 +40,53 @@
         console.log(fulfilled);
     });
 
+
     console.log('after asking the parents');
 
+
+    const p1 = new Promise((resolve, reject) => {
+        setTimeout(() => {
+        areParentsHappy = true;
+        if (areParentsHappy) {
+            const phone = {
+                brand: 'Android',
+                model: 'Galaxy Xs',
+                color: 'Space Gray'
+            };
+
+            resolve(phone); // fulfilled
+        } else {
+            const reason = new Error('parents are not happy');
+
+            reject(reason); // reject
+        }
+
+    }, 1000);
+    });
+
+    const p2 = new Promise((resolve, reject) => {
+        setTimeout(() => {
+        areParentsHappy = true;
+        if (areParentsHappy) {
+            const phone = {
+                brand: 'Nokia',
+                model: 'Oldone Xs',
+                color: 'Space Gray'
+            };
+
+            resolve(phone); // fulfilled
+        } else {
+            const reason = new Error('parents are not happy');
+
+            reject(reason); // reject
+        }
+
+    }, 1000);
+    });
+
+    Promise.all([p1, p2]).then(results => {
+        console.log(results[0].brand + results[1].brand);
+    });
 
 </script>
 </body>

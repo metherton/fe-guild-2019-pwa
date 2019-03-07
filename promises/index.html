@@ -34,11 +34,27 @@
     const showOff = (phone) => Promise.resolve(`Hey bro, I have a new ${phone.color} ${phone.brand} ${phone.model} phone`);
 
     console.log('before asking the parents');
+    // Call our promise
+    const askParents = async () => {
+        try {
+            console.log('Before asking parents');
 
-    willGetNewPhone.then(showOff)
-        .then(fulfilled => {
-        console.log(fulfilled);
-    });
+            const phone = await willGetNewPhone;
+            const message = await showOff(phone);
+
+            console.log(message);
+        }
+        catch (error) {
+            console.log(error.message);
+        }
+        finally {
+            console.log('After asking parents');
+        }
+    };
+
+    (async () => {
+        await askParents();
+    })();
 
 
     console.log('after asking the parents');

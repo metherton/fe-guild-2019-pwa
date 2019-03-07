@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Promises, promises</title>
+</head>
+<body>
+<script>
+    let areParentsHappy = false;
+
+    // Promise
+    const willGetNewPhone = new Promise((resolve, reject) => {
+            setTimeout(() => {
+        areParentsHappy = true;
+        if (areParentsHappy) {
+            const phone = {
+                brand: 'Apple',
+                model: 'iPhone Xs',
+                color: 'Space Gray'
+            };
+
+            resolve(phone); // fulfilled
+        } else {
+            const reason = new Error('parents are not happy');
+
+            reject(reason); // reject
+        }
+
+    }, 1000);
+    });
+
+    const showOff = (phone) => Promise.resolve(`Hey bro, I have a new ${phone.color} ${phone.brand} ${phone.model} phone`);
+
+    console.log('before asking the parents');
+
+    willGetNewPhone.then(showOff)
+        .then(fulfilled => {
+        console.log(fulfilled);
+    });
+
+    console.log('after asking the parents');
+
+
+</script>
+</body>
+</html>

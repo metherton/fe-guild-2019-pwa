@@ -38,6 +38,8 @@ const manifest = {
             "sizes": "512x512"
         }
     ],
+    "start_url": "/index.html",
+    "scope": ".",
     "display": "standalone",
     "orientation": "portrait-primary",
     "background_color": "#fff",

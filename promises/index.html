@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Promises, promises</title>
+</head>
+<body>
+<script>
+    let areParentsHappy = false;
+
+    // Promise
+    const willGetNewPhone = new Promise((resolve, reject) => {
+            setTimeout(() => {
+        areParentsHappy = true;
+        if (areParentsHappy) {
+            const phone = {
+                brand: 'Apple',
+                model: 'iPhone Xs',
+                color: 'Space Gray'
+            };
+
+            resolve(phone); // fulfilled
+        } else {
+            const reason = new Error('parents are not happy');
+
+            reject(reason); // reject
+        }
+
+    }, 1000);
+    });
+
+    const showOff = (phone) => Promise.resolve(`Hey bro, I have a new ${phone.color} ${phone.brand} ${phone.model} phone`);
+
+    console.log('before asking the parents');
+    // Call our promise
+    const askParents = async () => {
+        try {
+            console.log('Before asking parents');
+
+            const phone = await willGetNewPhone;
+            const message = await showOff(phone);
+
+            console.log(message);
+        }
+        catch (error) {
+            console.log(error.message);
+        }
+        finally {
+            console.log('After asking parents');
+        }
+    };
+
+    (async () => {
+        await askParents();
+    })();
+
+
+    console.log('after asking the parents');
+
+
+    const p1 = new Promise((resolve, reject) => {
+        setTimeout(() => {
+        areParentsHappy = true;
+        if (areParentsHappy) {
+            const phone = {
+                brand: 'Android',
+                model: 'Galaxy Xs',
+                color: 'Space Gray'
+            };
+
+            resolve(phone); // fulfilled
+        } else {
+            const reason = new Error('parents are not happy');
+
+            reject(reason); // reject
+        }
+
+    }, 1000);
+    });
+
+    const p2 = new Promise((resolve, reject) => {
+        setTimeout(() => {
+        areParentsHappy = true;
+        if (areParentsHappy) {
+            const phone = {
+                brand: 'Nokia',
+                model: 'Oldone Xs',
+                color: 'Space Gray'
+            };
+
+            resolve(phone); // fulfilled
+        } else {
+            const reason = new Error('parents are not happy');
+
+            reject(reason); // reject
+        }
+
+    }, 1000);
+    });
+
+    Promise.all([p1, p2]).then(results => {
+        console.log(results[0].brand + results[1].brand);
+    });
+
+</script>
+</body>
+</html>
